@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: incluster-test-pod
+  labels:
+    app: incluster-test
+spec:
+  schedulerName: balanced-scheduler
+  containers:
+    - name: nginx
+      image: nginx:1.27-alpine
+      resources:
+        requests:
+          cpu: "50m"
+          memory: "64Mi"

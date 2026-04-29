@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: balanced-scheduler-config
+  namespace: kube-system
+data:
+  scheduler-config.yaml: |
+    apiVersion: kubescheduler.config.k8s.io/v1
+    kind: KubeSchedulerConfiguration
+
+    leaderElection:
+      leaderElect: false
+
+    profiles:
+      - schedulerName: balanced-scheduler
+        plugins:
+          filter:
+            enabled:
+              - name: BalancedScheduler
+          score:
+            enabled:
+              - name: BalancedScheduler
+                weight: 5
+          reserve:
+            enabled:
+              - name: BalancedScheduler
+          permit:
+            enabled:
+              - name: BalancedScheduler

@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: balanced-scheduler
+  namespace: kube-system
+  labels:
+    app: balanced-scheduler
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: balanced-scheduler
+  template:
+    metadata:
+      labels:
+        app: balanced-scheduler
+    spec:
+      serviceAccountName: balanced-scheduler
+      containers:
+        - name: balanced-scheduler
+          image: balanced-scheduler:dev
+          imagePullPolicy: IfNotPresent
+          args:
+            - --config=/etc/kubernetes/scheduler-config.yaml
+            - --v=4
+          volumeMounts:
+            - name: scheduler-config
+              mountPath: /etc/kubernetes
+              readOnly: true
+      volumes:
+        - name: scheduler-config
+          configMap:
+            name: balanced-scheduler-config
+            items:
+              - key: scheduler-config.yaml
+                path: scheduler-config.yaml
