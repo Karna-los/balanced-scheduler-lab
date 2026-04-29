@@ -16,8 +16,8 @@ spec:
     spec:
       schedulerName: balanced-scheduler
       containers:
-        - name: nginx
-          image: nginx:1.27-alpine
+        - name: pause
+          image: registry.k8s.io/pause:3.10
           resources:
             requests:
               cpu: "50m"
