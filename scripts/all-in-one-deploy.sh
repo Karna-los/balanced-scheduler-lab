@@ -36,7 +36,7 @@ kubectl wait --for=condition=Ready nodes --all --timeout=180s
 kubectl get nodes -o wide
 
 echo "===== build scheduler binary ====="
-go build -o bin/balanced-scheduler ./cmd/balanced-scheduler
+CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o bin/balanced-scheduler ./cmd/balanced-scheduler
 
 echo "===== build docker image ====="
 docker build -t "$IMAGE_NAME" .

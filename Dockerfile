@@ -1,7 +1,7 @@
-FROM debian:bookworm-slim
+FROM scratch
 
-COPY bin/balanced-scheduler /usr/local/bin/balanced-scheduler
+COPY bin/balanced-scheduler /balanced-scheduler
 
 USER 65532:65532
 
-ENTRYPOINT ["/usr/local/bin/balanced-scheduler"]
+ENTRYPOINT ["/balanced-scheduler"]
